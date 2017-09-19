@@ -43,12 +43,26 @@ def processNames(names):
 
 #searching
 
-def searchTerm():
-	return input("What do you want to search? ")
+def getSearchTerm():
+	return input("What do you want to search? ").upper()
 
-def processSearch(search):
-	pass
+def search(searchTerm, data):
+	results = []
+	for e in data:
+		if (e[1].find(searchTerm) != -1):
+			results.append(e)
+	return results
 
 # runtime
 if __name__ == "__main__":
-	print(getAllPages(url))
+	data = getAllPages(url)
+	print(data)
+	print("-"*40)
+	while True:
+		searchTerm = getSearchTerm()
+		results = search(searchTerm, data)
+		print(results)
+		print("\n")
+		print("-"*40)
+		print("\n")
+		
