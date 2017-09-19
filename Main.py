@@ -6,6 +6,9 @@ url = "https://www.alternate.de/html/product/listingAboveFourtyPercent.html?lk=1
 def searchTerm():
 	return input("What do you want to search? ")
 
+def processSearch(search):
+	pass
+
 def getLinks(url):
 	r = requests.get(url)
 	soup = BeautifulSoup(r.text, "html.parser")
