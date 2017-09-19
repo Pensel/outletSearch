@@ -48,10 +48,22 @@ def getSearchTerm():
 
 def search(searchTerm, data):
 	results = []
+#	for e in data:
+#		if (e[1].find(searchTerm) != -1):
+#			results.append(e)
+	searchSplit = searchTerm.split(" ")
+	counter = 0
+	
 	for e in data:
-		if (e[1].find(searchTerm) != -1):
-			results.append(e)
-	return results
+	#	splitted = e[1].split(" ")
+	#	for term in searchSplit:
+	#		if term in splitted:
+	#			counter += 1
+	#	if (counter >= 0): # && differenz bis zu 2?!
+	#		results.append(e)
+		splitted = e[1].split(" ")
+		
+return results
 
 # runtime
 if __name__ == "__main__":
