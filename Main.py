@@ -3,11 +3,8 @@ from bs4 import BeautifulSoup
 
 url = "https://www.alternate.de/html/product/listingAboveFourtyPercent.html?lk=17979&size=500&sort=PRICEADVANTAGE&order=DESC&outlet=0&outlet=1#listingResult"
 
-def searchTerm():
-	return input("What do you want to search? ")
 
-def processSearch(search):
-	pass
+#building data
 
 def getSoup(url):
 	r = requests.get(url)
@@ -16,17 +13,17 @@ def getSoup(url):
 def getListings(soup):	
 	return soup.find("div", {"id" : "listingResult"})
 
-def filterNames(listings, page=0):
+def getData(listings, page=0):
 	data = []
 	links = listings.findAll("a", {"class": "productLink"})
 	i = 0
 	for link in links:
-		data.append((i+page*500, link["title"], link["href"])) #add prices? 
+		data.append((i+page*500, link["title"].upper(), link["href"])) #add prices? 
 		i += 1
 	return data
 
 def completeOnePage(url, page):
-	return filterNames(getListings((getSoup(url))),page)
+	return getData(getListings((getSoup(url))),page)
 
 
 def getAllPages(url):
@@ -37,12 +34,21 @@ def getAllPages(url):
 	data = []
 	if needed > 0:
 		for i in range(0,needed +1):
-			data.append(completeOnePage("https://www.alternate.de/html/product/listingAboveFourtyPercent.html?lk=17979&page=" +str((i+1)) + "&size=500&sort=PRICEADVANTAGE&order=DESC&outlet=0&outlet=1#listingResult", i))
+			data += completeOnePage("https://www.alternate.de/html/product/listingAboveFourtyPercent.html?lk=17979&page=" +str((i+1)) + "&size=500&sort=PRICEADVANTAGE&order=DESC&outlet=0&outlet=1#listingResult", i)
 	return data
+
+
 def processNames(names):
 	pass
 
+#searching
 
+def searchTerm():
+	return input("What do you want to search? ")
 
+def processSearch(search):
+	pass
+
+# runtime
 if __name__ == "__main__":
 	print(getAllPages(url))
