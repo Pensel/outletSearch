@@ -21,7 +21,7 @@ def filterNames(listings, page=0):
 	links = listings.findAll("a", {"class": "productLink"})
 	i = 0
 	for link in links:
-		data.append((i+page*500, link["title"], link["href"]))
+		data.append((i+page*500, link["title"], link["href"])) #add prices? 
 		i += 1
 	return data
 
